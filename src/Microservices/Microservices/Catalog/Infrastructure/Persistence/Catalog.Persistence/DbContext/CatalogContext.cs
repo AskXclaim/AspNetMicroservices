@@ -47,7 +47,7 @@ public class CatalogContext : ICatalogContext
 
         return _mapper.Map<List<Product>>(entityProducts);
     }
-
+    
     public async Task<bool> Create(Product product)
     {
         var entityProduct = _mapper.Map<Entities.Product>(product);

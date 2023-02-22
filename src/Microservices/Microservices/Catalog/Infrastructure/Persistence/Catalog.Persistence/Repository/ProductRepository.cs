@@ -12,7 +12,6 @@ public class ProductRepository : IProductRepository
 
     public async Task<List<Product>> GetProductByName(string name) =>
         await _context.FindByNameAsync(name);
-
     public async Task<List<Product>> GetProductByCategoryName(string categoryName) =>
         await _context.FindByCategoryAsync(categoryName);
 
