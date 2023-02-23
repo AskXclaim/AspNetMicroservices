@@ -11,7 +11,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
+      <ProjectReference Include="..\..\Core\Application\Catalog.Application\Catalog.Application.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Persistence\Catalog.Persistence\Catalog.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

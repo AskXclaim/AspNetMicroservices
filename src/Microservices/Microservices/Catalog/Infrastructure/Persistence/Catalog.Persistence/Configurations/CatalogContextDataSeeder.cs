@@ -1,10 +1,8 @@
-using Product = Catalog.Persistence.Entities.Product;
-
 namespace Catalog.Persistence.Configurations;
 
 public static class CatalogContextDataSeeder
 {
-    public static IMongoCollection<Product> SeedData(IMongoCollection<Product> productCollection)
+    public static IMongoCollection<ProductEntity> SeedData(IMongoCollection<ProductEntity> productCollection)
     {
         var doProductsExist =  productCollection.Find(p => true).Any();
         if (!doProductsExist) productCollection.InsertMany(GetPreconfiguredProducts());
@@ -12,9 +10,9 @@ public static class CatalogContextDataSeeder
         return productCollection;
     }
 
-    private static IEnumerable<Product> GetPreconfiguredProducts()
+    private static IEnumerable<ProductEntity> GetPreconfiguredProducts()
     {
-        return new List<Product>
+        return new List<ProductEntity>
         {
             new()
             {

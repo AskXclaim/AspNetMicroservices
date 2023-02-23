@@ -1,6 +1,6 @@
 namespace Catalog.Persistence.Entities;
 
-public class Product
+public class ProductEntity
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]

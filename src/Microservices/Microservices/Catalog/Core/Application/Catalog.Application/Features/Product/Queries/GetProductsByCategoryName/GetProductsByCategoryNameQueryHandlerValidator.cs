@@ -8,10 +8,9 @@ public class GetProductsByCategoryNameQueryHandlerValidator : AbstractValidator<
     {
         _productRepository = productRepository;
         RuleFor(q => q.CategoryName)
-            .NotNull().WithMessage("{PropertyName} cannot be null");
-        RuleFor(q => q.CategoryName)
-            .NotEmpty().WithMessage("{PropertyName} cannot be empty");
-        RuleFor(q => q.CategoryName)
+            .Must(Utility.IsNotEmptyOrWhitespace)
+            .WithMessage("{PropertyName} cannot be null, empty or whitespace");
+            RuleFor(q=>q.CategoryName)
             .MustAsync(IsCategoryPresent)
             .WithMessage("Invalid {PropertyValue} provided");
     }

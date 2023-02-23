@@ -3,7 +3,7 @@ namespace Catalog.Persistence.DbContext;
 public class CatalogContext : ICatalogContext
 {
     private readonly IMapper _mapper;
-    private readonly IMongoCollection<Entities.Product> _products;
+    private readonly IMongoCollection<ProductEntity> _products;
 
     public CatalogContext(IOptions<DatabaseSettings> databaseSettings, IMapper mapper)
     {
@@ -11,9 +11,10 @@ public class CatalogContext : ICatalogContext
         var client = new MongoClient(databaseSettings.Value.ConnectionString);
         var database = client.GetDatabase(databaseSettings.Value.DatabaseName);
         _products =
-            database.GetCollection<Entities.Product>(databaseSettings.Value.CollectionName);
+            database.GetCollection<ProductEntity>(databaseSettings.Value.CollectionName);
         _products = CatalogContextDataSeeder.SeedData(_products);
-        Products = _mapper.Map<List<Product>>(_products);
+       
+        Products = _mapper.Map<List<Product>>(_products.Find(p=>true).ToList());
     }
 
     public List<Product> Products { get; }
@@ -33,7 +34,7 @@ public class CatalogContext : ICatalogContext
 
     public async Task<List<Product>> FindByNameAsync(string name)
     {
-        var filter = Builders<Entities.Product>.Filter.Eq(p => p.Name, name);
+        var filter = Builders<ProductEntity>.Filter.Eq(p => p.Name, name);
         var entityProducts = await (await _products.FindAsync(filter)).ToListAsync();
 
         return _mapper.Map<List<Product>>(entityProducts);
@@ -42,23 +43,23 @@ public class CatalogContext : ICatalogContext
     //Note that you don't have to use filter you can use other ways.
     public async Task<List<Product>> FindByCategoryAsync(string categoryName)
     {
-        var filter = Builders<Entities.Product>.Filter.Eq(p => p.Category, categoryName);
+        var filter = Builders<ProductEntity>.Filter.Eq(p => p.Category, categoryName);
         var entityProducts = await (await _products.FindAsync(filter)).ToListAsync();
 
         return _mapper.Map<List<Product>>(entityProducts);
     }
     
-    public async Task<bool> Create(Product product)
+    public async Task<string> Create(Product product)
     {
-        var entityProduct = _mapper.Map<Entities.Product>(product);
+        var entityProduct = _mapper.Map<ProductEntity>(product);
         await _products.InsertOneAsync(entityProduct);
 
-        return !string.IsNullOrEmpty(entityProduct.Id);
+        return entityProduct.Id;
     }
 
     public async Task<bool> Update(Product product)
     {
-        var entityProduct = _mapper.Map<Entities.Product>(product);
+        var entityProduct = _mapper.Map<ProductEntity>(product);
         var updateResult = await _products.ReplaceOneAsync(
             p => p.Id == entityProduct.Id, replacement: entityProduct);
 

@@ -11,14 +11,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Product\Commands" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
       <PackageReference Include="FluentValidation" Version="11.5.1" />
       <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
     </ItemGroup>
 
 </Project>

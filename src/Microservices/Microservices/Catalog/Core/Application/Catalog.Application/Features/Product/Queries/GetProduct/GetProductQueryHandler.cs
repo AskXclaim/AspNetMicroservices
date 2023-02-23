@@ -1,6 +1,6 @@
 namespace Catalog.Application.Features.Product.Queries.GetProduct;
 
-public class GetProductQueryHandler : IRequestHandler<GetProductsQuery, ProductDto>
+public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductDto>
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
@@ -11,7 +11,7 @@ public class GetProductQueryHandler : IRequestHandler<GetProductsQuery, ProductD
         _mapper = mapper;
     }
 
-    public async Task<ProductDto> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+    public async Task<ProductDto> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
         var validator = new GetProductQueryHandlerValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);

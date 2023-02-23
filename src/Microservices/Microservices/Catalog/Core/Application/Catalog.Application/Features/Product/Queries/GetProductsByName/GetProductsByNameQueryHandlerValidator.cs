@@ -8,9 +8,8 @@ public class GetProductsByNameQueryHandlerValidator:AbstractValidator<GetProduct
     {
         _productRepository = productRepository;
         RuleFor(q => q.Name)
-            .NotNull().WithMessage("{PropertyName} cannot be null");
-        RuleFor(q => q.Name)
-            .NotEmpty().WithMessage("{PropertyName} cannot be empty");
+            .Must(Utility.IsNotEmptyOrWhitespace)
+            .WithMessage("{PropertyName} cannot be null, empty or whitespace");
         RuleFor(q => q.Name)
             .MustAsync(IsNamePresent)
             .WithMessage("Invalid {PropertyValue} provided");

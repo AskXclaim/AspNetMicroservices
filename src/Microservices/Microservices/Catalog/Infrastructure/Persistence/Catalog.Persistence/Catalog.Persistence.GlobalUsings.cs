@@ -7,6 +7,7 @@ global using Catalog.Application.Models.Persistence;
 global using Catalog.Domain;
 global using Catalog.Persistence.Configurations;
 global using Catalog.Persistence.DbContext;
+global using Catalog.Persistence.Entities;
 global using Catalog.Persistence.Repository;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
