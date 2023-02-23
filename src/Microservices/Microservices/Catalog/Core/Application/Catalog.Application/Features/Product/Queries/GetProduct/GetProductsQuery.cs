@@ -1,3 +1,3 @@
 namespace Catalog.Application.Features.Product.Queries.GetProduct;
 
-public record GetProductsQuery(string Id):IRequest<Domain.Product>;
+public record GetProductsQuery(string Id):IRequest<ProductDto>;
