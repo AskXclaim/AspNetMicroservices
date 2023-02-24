@@ -28,7 +28,7 @@ public class CatalogController : Controller
         return Ok(productsDto);
     }
 
-    [HttpGet("{name:length(30)}")]
+    [HttpGet("{name:Maxlength(30)}")]
     [ProducesResponseType(typeof(IEnumerable<ProductDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -38,7 +38,7 @@ public class CatalogController : Controller
         return Ok(productsDto);
     }
 
-    [HttpGet("{categoryName:length(30)}")]
+    [HttpGet("{categoryName:Maxlength(30)}")]
     [ProducesResponseType(typeof(IEnumerable<ProductDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -56,7 +56,7 @@ public class CatalogController : Controller
         var createdProductId = await _mediator.Send(new CreateProductCommand(product.Name, product.Category,
             product.Summary, product.Description, product.ImageFile, product.Price));
         product.Id = createdProductId;
-        return CreatedAtRoute($"{nameof(GetProduct)}", new {id = createdProductId}, product);
+        return CreatedAtAction(nameof(GetProduct), new {id = createdProductId}, product);
     }
 
     [HttpPut]
@@ -65,7 +65,7 @@ public class CatalogController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateProduct([FromBody] ProductDto product)
     {
-        var isProductUpdated = await _mediator.Send(new UpdateProductCommand(product.Name, product.Category,
+        var isProductUpdated = await _mediator.Send(new UpdateProductCommand(product.Id, product.Name, product.Category,
             product.Summary, product.Description, product.ImageFile, product.Price));
         return Ok(isProductUpdated);
     }

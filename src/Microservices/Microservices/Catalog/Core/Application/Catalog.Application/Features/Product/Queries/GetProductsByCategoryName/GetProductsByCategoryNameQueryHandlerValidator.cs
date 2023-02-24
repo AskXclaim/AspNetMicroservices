@@ -12,7 +12,7 @@ public class GetProductsByCategoryNameQueryHandlerValidator : AbstractValidator<
             .WithMessage("{PropertyName} cannot be null, empty or whitespace");
             RuleFor(q=>q.CategoryName)
             .MustAsync(IsCategoryPresent)
-            .WithMessage("Invalid {PropertyValue} provided");
+            .WithMessage("Invalid {PropertyName} '{PropertyValue}' provided");
     }
 
     private async Task<bool> IsCategoryPresent(string categoryName, CancellationToken token) =>

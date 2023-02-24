@@ -13,42 +13,47 @@ public class CatalogContext : ICatalogContext
         _products =
             database.GetCollection<ProductEntity>(databaseSettings.Value.CollectionName);
         _products = CatalogContextDataSeeder.SeedData(_products);
-       
-        Products = _mapper.Map<List<Product>>(_products.Find(p=>true).ToList());
+
+        Products = _mapper.Map<List<Product>>(_products.Find(p => true).ToList());
     }
 
     public List<Product> Products { get; }
 
     public async Task<Product> FindAsync(string id)
     {
-        var entityProduct = await _products.FindAsync(p => p.Id == id);
-        return _mapper.Map<Product>(entityProduct);
+        var productEntity = _products.Find(p => p.Id == id).FirstOrDefault();
+        return _mapper.Map<Product>(productEntity);
     }
 
     public async Task<List<Product>> FindAsync()
     {
-        var entityProducts = await (await _products.FindAsync(p => true)).ToListAsync();
+        var productEntities = await (await _products.FindAsync(p => true)).ToListAsync();
 
-        return _mapper.Map<List<Product>>(entityProducts);
+        return _mapper.Map<List<Product>>(productEntities);
     }
 
-    public async Task<List<Product>> FindByNameAsync(string name)
+    public Task<List<Product>> FindByNameAsync(string name)
     {
-        var filter = Builders<ProductEntity>.Filter.Eq(p => p.Name, name);
-        var entityProducts = await (await _products.FindAsync(filter)).ToListAsync();
+        var productEntities = _products.AsQueryable().Where(p =>
+            p.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
+        // var filter = Builders<ProductEntity>.Filter.Eq(p => p.Name, name);
+        // var productEntities = await (await _products.FindAsync(filter)).ToListAsync();
 
-        return _mapper.Map<List<Product>>(entityProducts);
+        return Task.FromResult(_mapper.Map<List<Product>>(productEntities));
     }
 
     //Note that you don't have to use filter you can use other ways.
-    public async Task<List<Product>> FindByCategoryAsync(string categoryName)
+    public Task<List<Product>> FindByCategoryAsync(string categoryName)
     {
-        var filter = Builders<ProductEntity>.Filter.Eq(p => p.Category, categoryName);
-        var entityProducts = await (await _products.FindAsync(filter)).ToListAsync();
+        var productEntities = _products.AsQueryable().Where(p =>
+            p.Category.Equals(categoryName, StringComparison.OrdinalIgnoreCase)).ToList();
+        // var filter = Builders<ProductEntity>.Filter.Eq(p =>
+        //     p.Category, categoryName);
+        // var entityProducts = await (await _products.FindAsync(filter)).ToListAsync();
 
-        return _mapper.Map<List<Product>>(entityProducts);
+        return Task.FromResult(_mapper.Map<List<Product>>(productEntities));
     }
-    
+
     public async Task<string> Create(Product product)
     {
         var entityProduct = _mapper.Map<ProductEntity>(product);

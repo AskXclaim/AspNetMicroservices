@@ -8,10 +8,14 @@ public class UpdateProductCommandValidator : AbstractValidator<UpdateProductComm
     {
         _productRepository = productRepository;
         Include(new ProductCommandValidator());
+        RuleFor(cpc => cpc.Id)
+            .Must(Utility.IsNotEmptyOrWhitespace)
+            .WithMessage("{PropertyName} cannot be null,empty or whitespace");
         RuleFor(cpc => cpc)
             .MustAsync(DoesProductExist)
             .WithMessage($"{nameof(Domain.Product)} does not exists");
     }
+
     private async Task<bool> DoesProductExist(UpdateProductCommand command, CancellationToken token) =>
-        await _productRepository.DoesProductExist(command.Name, command.Category);
+        await _productRepository.GetProduct(command.Id) != null;
 }
