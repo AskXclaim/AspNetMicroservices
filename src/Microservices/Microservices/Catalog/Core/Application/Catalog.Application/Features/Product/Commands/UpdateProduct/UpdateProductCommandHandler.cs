@@ -16,7 +16,9 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
         var validator = new UpdateProductCommandValidator(_productRepository);
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        if (validationResult.Errors.Any()) throw new BadRequestException(validationResult);
+        if (validationResult.Errors.Any())
+            throw new BadRequestException(
+                $"Bad {nameof(UpdateProductCommandHandler).GetHandlerName()} request", validationResult);
 
         return await _productRepository.UpdateProduct(_mapper.Map<Domain.Product>(request));
     }

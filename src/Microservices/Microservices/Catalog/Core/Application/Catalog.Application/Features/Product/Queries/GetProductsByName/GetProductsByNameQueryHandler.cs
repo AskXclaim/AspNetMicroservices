@@ -16,10 +16,15 @@ public class GetProductsByNameQueryHandler : IRequestHandler<GetProductsByNameQu
         var validator = new GetProductsByNameQueryHandlerValidator(_productRepository);
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        if (validationResult.Errors.Any()) throw new BadRequestException(validationResult);
-        
-        var products=  await _productRepository.GetProductByName(request.Name);
-        
+        if (validationResult.Errors.Any())
+        {
+            throw new BadRequestException(
+                $"Bad {nameof(GetProductsByNameQueryHandler).GetHandlerName("QueryHandler")} request",
+                validationResult);
+        }
+
+        var products = await _productRepository.GetProductByName(request.Name);
+
         if (products == null) throw new NotFoundException($"{nameof(Domain.Product)}s not found");
 
         return _mapper.Map<List<ProductDto>>(products);

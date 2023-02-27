@@ -1,6 +1,9 @@
 // Global using directives
 
+global using System.Net;
+global using Catalog.Api.CustomMiddleware.Shared;
 global using Catalog.Application;
+global using Catalog.Application.Exceptions;
 global using Catalog.Application.Features.Product.Commands.CreateProduct;
 global using Catalog.Application.Features.Product.Commands.DeleteProduct;
 global using Catalog.Application.Features.Product.Commands.UpdateProduct;

@@ -11,6 +11,7 @@ builder.Services.AddPersistenceServices(builder.Configuration);
 
 var app = builder.Build();
 
+app.UseException();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -16,7 +16,8 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         var validator = new CreateProductCommandValidator(_productRepository);
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        if (validationResult.Errors.Any()) throw new BadRequestException(validationResult);
+        if (validationResult.Errors.Any()) throw new BadRequestException(
+            $"Bad {nameof(CreateProductCommandHandler).GetHandlerName()} request", validationResult);
 
         return await _productRepository.CreateProduct(_mapper.Map<Domain.Product>(request));
     }

@@ -16,7 +16,11 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductDt
         var validator = new GetProductQueryHandlerValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        if (validationResult.Errors.Any()) throw new BadRequestException(validationResult);
+        if (validationResult.Errors.Any()) {
+            throw new BadRequestException(
+                $"Bad {nameof(GetProductQueryHandler).GetHandlerName("QueryHandler")} request",
+                validationResult);
+        }
 
         var product= await _productRepository.GetProduct(request.Id);
         

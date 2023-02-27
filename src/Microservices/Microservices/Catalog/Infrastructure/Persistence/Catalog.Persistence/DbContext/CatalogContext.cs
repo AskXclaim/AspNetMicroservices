@@ -19,10 +19,10 @@ public class CatalogContext : ICatalogContext
 
     public List<Product> Products { get; }
 
-    public async Task<Product> FindAsync(string id)
+    public Task<Product> FindAsync(string id)
     {
         var productEntity = _products.Find(p => p.Id == id).FirstOrDefault();
-        return _mapper.Map<Product>(productEntity);
+        return Task.FromResult(_mapper.Map<Product>(productEntity));
     }
 
     public async Task<List<Product>> FindAsync()
