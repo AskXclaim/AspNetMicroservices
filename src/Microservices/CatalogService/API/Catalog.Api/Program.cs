@@ -9,7 +9,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 
+builder.Services.AddHealthChecks();
 var app = builder.Build();
+app.MapHealthChecks("/health");
 
 app.UseException();
 // Configure the HTTP request pipeline.

@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Api", "Catalog\API\Catalog.Api\Catalog.Api.csproj", "{445A1B26-A0D8-46A9-9035-AD0F6A256EA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Api", "CatalogService\API\Catalog.Api\Catalog.Api.csproj", "{445A1B26-A0D8-46A9-9035-AD0F6A256EA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Domain", "Catalog\Core\Domain\Catalog.Domain\Catalog.Domain.csproj", "{DF7CC579-25EF-4E74-ACFF-58B2F3F97CAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Domain", "CatalogService\Core\Domain\Catalog.Domain\Catalog.Domain.csproj", "{DF7CC579-25EF-4E74-ACFF-58B2F3F97CAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Persistence", "Catalog\Infrastructure\Persistence\Catalog.Persistence\Catalog.Persistence.csproj", "{110DEDF0-DD33-4067-947A-10553BAE742A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Persistence", "CatalogService\Infrastructure\Persistence\Catalog.Persistence\Catalog.Persistence.csproj", "{110DEDF0-DD33-4067-947A-10553BAE742A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Application", "Catalog\Core\Application\Catalog.Application\Catalog.Application.csproj", "{82D47B0B-A169-4C15-BB1B-399D41886349}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Application", "CatalogService\Core\Application\Catalog.Application\Catalog.Application.csproj", "{82D47B0B-A169-4C15-BB1B-399D41886349}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
