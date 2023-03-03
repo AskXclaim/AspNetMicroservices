@@ -49,7 +49,7 @@ public class ExceptionMiddleware
             }
         }
 
-        _logger.LogError(problemDetails.Detail, problemDetails);
+        _logger.LogError(problemDetails.Detail);
         context.Response.StatusCode = (int) statusCode;
         await context.Response.WriteAsJsonAsync(problemDetails);
     }
@@ -61,7 +61,7 @@ public class ExceptionMiddleware
             Title = exception.Message,
             Type = type,
             Status = (int) statusCode,
-            Detail = exception.InnerException == null
+            Detail = exception.InnerException != null
                 ? exception.InnerException?.Message
                 : exception.Message
         };

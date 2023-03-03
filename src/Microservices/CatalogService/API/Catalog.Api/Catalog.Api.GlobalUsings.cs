@@ -15,3 +15,4 @@ global using Catalog.Application.Features.Product.Queries.GetProductsByName;
 global using Catalog.Persistence;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Server.Kestrel.Core;

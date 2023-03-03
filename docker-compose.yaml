@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  catalogdb:
+    image: mongo
+
+  catalogservice:
+    build:
+      context: ./src/Microservices
+      dockerfile: CatalogService.Dockerfile
+      
+volumes:
+  mongo_data:
