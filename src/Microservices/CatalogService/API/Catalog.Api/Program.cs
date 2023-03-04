@@ -1,5 +1,3 @@
-using System.Reflection;
-
 const string AllowAllCors = "AllowAll";
 var builder = WebApplication.CreateBuilder(args);
 
