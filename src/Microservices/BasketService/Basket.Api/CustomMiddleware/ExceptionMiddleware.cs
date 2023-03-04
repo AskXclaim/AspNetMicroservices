@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace Basket.Api.CustomMiddleware;
 
 public class ExceptionMiddleware
@@ -21,19 +19,26 @@ public class ExceptionMiddleware
         }
         catch (Exception exception)
         {
-            var exceptionMessage = string.IsNullOrWhiteSpace(exception?.InnerException?.Message)
-                ? exception.Message
-                : exception.InnerException.Message;
+            var exceptionMessage = GetExceptionMessage(exception);
+
             _logger.LogError(exceptionMessage);
-            var problem = new ProblemDetails()
-            {
-                Title = "Server error",
-                Type = nameof(HttpStatusCode.InternalServerError),
-                Status = (int) HttpStatusCode.InternalServerError,
-                Detail = exceptionMessage
-            };
+
+            var problem = GetProblemDetails(exceptionMessage);
             context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
             await context.Response.WriteAsJsonAsync(problem);
         }
     }
+
+    private string GetExceptionMessage(Exception exception) =>
+        string.IsNullOrWhiteSpace(exception?.InnerException?.Message)
+            ? exception.Message
+            : exception.InnerException.Message;
+
+    private ProblemDetails GetProblemDetails(string exceptionMessage) => new()
+    {
+        Title = "Server error",
+        Type = nameof(HttpStatusCode.InternalServerError),
+        Status = (int) HttpStatusCode.InternalServerError,
+        Detail = exceptionMessage
+    };
 }
