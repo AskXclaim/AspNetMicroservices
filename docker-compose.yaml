@@ -4,10 +4,18 @@ services:
   catalogdb:
     image: mongo
 
+  basketdb:
+    image: redis:alpine
+  
   catalogservice:
     build:
       context: ./src/Microservices
       dockerfile: CatalogService.Dockerfile
+      
+  basketservice:
+    build:
+      context: ./src/Microservices
+      dockerfile: BasketService.Dockerfile
       
 volumes:
   mongo_data:

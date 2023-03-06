@@ -30,7 +30,7 @@ public class ExceptionMiddleware
     }
 
     private string GetExceptionMessage(Exception exception) =>
-        string.IsNullOrWhiteSpace(exception?.InnerException?.Message)
+        string.IsNullOrWhiteSpace(exception.InnerException?.Message)
             ? exception.Message
             : exception.InnerException.Message;
 
