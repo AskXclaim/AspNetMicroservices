@@ -6,7 +6,13 @@ services:
 
   basketdb:
     image: redis:alpine
-    
+  
+  discountdb:
+    image: postgres:15-alpine
+  
+  pgadmin:
+    image: dpage/pgadmin4
+  
   portainer:
     image: portainer/portainer-ce
   
@@ -19,7 +25,14 @@ services:
     build:
       context: ./src/Microservices
       dockerfile: BasketService.Dockerfile
+  
+  discountservice:
+    build:
+      context: ./src/Microservices
+      dockerfile: DiscountService.Dockerfile
       
 volumes:
   mongo_data:
+  postgres_data:
   portainer_data:
+  pgadmin_data:
