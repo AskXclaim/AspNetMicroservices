@@ -1,0 +1,48 @@
+syntax="proto3";
+
+option csharp_namespace="Discount.Grpc.Protos";
+
+service DiscountProtoService{
+  rpc GetDiscount(GetDiscountRequest) returns (CouponGrpcModel);
+  rpc CreateDiscount(CreateDiscountRequest) returns (CouponGrpcModel);
+  rpc UpdateDiscount(UpdateDiscountRequest) returns (CouponGrpcModel);
+  rpc DeleteDiscount(DeleteDiscountRequest) returns (DeleteDiscountResponse);
+}
+message GetDiscountRequest{
+ string productName=1;
+}
+
+message CouponGrpcModel{
+  int32 id=1;
+  string productName=2;
+  string description=3;
+  //Note that string is being used because of the 
+  //limitations of grpc types but should be a string
+  //that is convertable to a decimal.
+  string amount=4;
+}
+message CouponGrpcRequestModel{
+  int32 id=1;
+  string productName=2;
+  string description=3;
+  //Note that string is being used because of the 
+  //limitations of grpc types but should be a string
+  //that is convertable to a decimal.
+  string amount=4;
+}
+
+message CreateDiscountRequest{
+  CouponGrpcRequestModel coupon=1;
+}
+
+message UpdateDiscountRequest{
+  CouponGrpcRequestModel coupon=1;
+}
+
+message DeleteDiscountRequest{
+  string productName =1;
+}
+
+message DeleteDiscountResponse{
+  bool success=1;
+}
