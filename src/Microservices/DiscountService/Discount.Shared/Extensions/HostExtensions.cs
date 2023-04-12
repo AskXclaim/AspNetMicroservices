@@ -1,8 +1,8 @@
-namespace Discount.Api.Extensions;
+namespace Discount.Shared.Extensions;
 
 public static class HostExtensions
 {
-    public static IHost MigrateDatabase<TContext>(this IHost host, int? retry = 0)
+    public static IHost MigrateDatabase<TContext>(this IHost host, string connectionString, int? retry = 0)
     {
         var retryForAvailability = retry ?? 0;
 
@@ -17,7 +17,7 @@ public static class HostExtensions
                 ? "Beginning to migrate postgresql"
                 : $"Attempt{retryForAvailability}: to migrate postgresql");
 
-            var connectionString = configuration.GetValue<string>("DatabaseSettings:ConnectionString");
+            // var connectionString = configuration.GetValue<string>("DatabaseSettings:ConnectionString");
             using var connection = new NpgsqlConnection(connectionString);
 
             logger.LogInformation(connectionString);
@@ -52,7 +52,7 @@ public static class HostExtensions
             {
                 retryForAvailability++;
                 Thread.Sleep(2000);
-                MigrateDatabase<TContext>(host, retryForAvailability);
+                MigrateDatabase<TContext>(host,connectionString, retryForAvailability);
             }
         }
 

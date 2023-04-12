@@ -1,6 +1,4 @@
-using Discount.Api.CustomMiddleware;
-
-namespace Discount.Api.Middleware;
+namespace Discount.Api.CustomMiddleware;
 
 public static class MiddlewareExtension
 {

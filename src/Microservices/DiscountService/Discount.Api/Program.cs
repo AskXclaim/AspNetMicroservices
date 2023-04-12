@@ -1,3 +1,4 @@
+using Discount.Api.CustomMiddleware;
 using Discount.Api.Extensions;
 
 const string ALllowAllCors = "AllowAllCors";
@@ -14,9 +15,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 var app = builder.Build();
-app.MigrateDatabase<Program>();
 
 app.UseException();
+app.MigrateDatabase<Program>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

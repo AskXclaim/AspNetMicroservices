@@ -1,4 +1,4 @@
-namespace Discount.Api.CustomMiddleware;
+namespace Discount.Shared.CustomMiddleware;
 
 public class ExceptionMiddleware
 {
@@ -22,13 +22,18 @@ public class ExceptionMiddleware
             var problemDetail = new ProblemDetails()
             {
                 Title = "Server Exception",
-                Type =nameof(HttpStatusCode.InternalServerError),
-                Detail = e.InnerException==null?e.Message:e.InnerException.Message,
-                Status = (int)HttpStatusCode.InternalServerError
+                Type = nameof(HttpStatusCode.InternalServerError),
+                Detail = e.InnerException == null ? e.Message : e.InnerException.Message,
+                Status = (int) HttpStatusCode.InternalServerError
             };
             _logger.LogError(problemDetail.Detail);
             context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
-            await context.Response.WriteAsJsonAsync(problemDetail);
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            await context.Response.WriteAsync(JsonSerializer.Serialize(problemDetail,options));
         }
     }
 }
