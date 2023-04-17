@@ -1,11 +1,7 @@
-namespace Order.Domain.Entities;
+namespace Order.Application.Features.Orders.Common;
 
-public class Address: EntityBase
+public class AddressDto
 {
-    public string FirstName { get; set; } = string.Empty;
-    public string MiddleName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
     public string AddressLineOne { get; set; } = string.Empty;
     public string AddressLineTwo { get; set; } = string.Empty;
     public string County { get; set; } = string.Empty;

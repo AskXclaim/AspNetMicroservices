@@ -1,10 +1,10 @@
 namespace Order.Domain.Entities;
 
-public class Payment:EntityBase
+public class PaymentDetail:EntityBase
 {
     //Todo change this to enum
-    public int PaymentMethod { get; set; }
-    
+    public int PaymentMethodId { get; set; }
+    public string PaymentMethodName { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string Number { get; set; } = string.Empty;
