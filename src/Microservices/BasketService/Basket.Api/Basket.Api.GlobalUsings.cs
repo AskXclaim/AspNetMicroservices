@@ -9,5 +9,6 @@ global using Basket.Api.Entities;
 global using Basket.Api.Models;
 global using Basket.Api.Repositories;
 global using Basket.Api.Repositories.Interfaces;
+global using Discount.Grpc.Protos;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.Extensions.Caching.Distributed;

@@ -4,7 +4,7 @@ public class ShoppingCartProfile:Profile
 {
     public ShoppingCartProfile()
     {
-        CreateMap<ShoppingCart, ShoppingCartDto>();
-        CreateMap<ShoppingCartItem, ShoppingCartItemDto>();
+        CreateMap<ShoppingCart, ShoppingCartDto>().ReverseMap();
+        CreateMap<ShoppingCartItem, ShoppingCartItemDto>().ReverseMap();
     }
 }

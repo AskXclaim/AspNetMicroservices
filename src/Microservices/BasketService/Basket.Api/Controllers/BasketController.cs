@@ -1,3 +1,5 @@
+using Basket.Api.GrpcServices;
+
 namespace Basket.Api.Controllers;
 
 [ApiController]
@@ -6,11 +8,14 @@ public class BasketController : Controller
 {
     private readonly IMapper _mapper;
     private readonly IBasketRepository _basketRepository;
+    private readonly DiscountGrpcService _discountGrpcService;
 
-    public BasketController(IMapper mapper, IBasketRepository basketRepository)
+    public BasketController(IMapper mapper, IBasketRepository basketRepository,
+        DiscountGrpcService discountGrpcService)
     {
         _mapper = mapper;
         _basketRepository = basketRepository;
+        _discountGrpcService = discountGrpcService;
     }
 
     [HttpGet("userName")]
@@ -38,6 +43,12 @@ public class BasketController : Controller
     public async Task<ActionResult<ShoppingCartDto>> UpdateBasket(ShoppingCartDto shoppingCart)
     {
         var cart = _mapper.Map<ShoppingCart>(shoppingCart);
+        foreach (var item in cart.Items)
+        {
+            var coupon = await _discountGrpcService.GetCoupon(item.ProductName);
+            item.Price -= decimal.Parse(coupon.Amount);
+        }
+
         var result = await _basketRepository.UpdateBasket(cart);
         var shoppingCartDto = _mapper.Map<ShoppingCartDto>(result);
         return Ok(shoppingCartDto);

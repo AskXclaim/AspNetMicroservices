@@ -1,8 +1,8 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS  base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS  base
 WORKDIR /app
 EXPOSE 6002
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["./BasketService/Basket.Api/Basket.Api.csproj","BasketService/Basket.Api/"]
 RUN dotnet Restore "BasketService/Basket.Api/Basket.Api.csproj"

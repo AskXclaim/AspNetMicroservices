@@ -30,6 +30,11 @@ services:
     build:
       context: ./src/Microservices
       dockerfile: DiscountService.Dockerfile
+  
+  discountgrpcservice:
+    build:
+      context: ./src/Microservices
+      dockerfile: DiscountGrpcService.Dockerfile
       
 volumes:
   mongo_data:
